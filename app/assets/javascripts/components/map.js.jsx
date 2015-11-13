@@ -30,7 +30,6 @@ var Map = React.createClass({
     var markers = [];
     var pos;
 
-
     BenchStore.all().forEach(function (bench) {
       pos = {lat: bench.lat, lng: bench.lng};
       markers.push(new google.maps.Marker({ position: pos, title: bench.description }));
@@ -42,7 +41,7 @@ var Map = React.createClass({
       marker.setMap(that.map);
     });
 
-
+    this.markers = markers;
 
   },
 
