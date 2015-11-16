@@ -5,23 +5,26 @@ var Filter = React.createClass({
   },
 
   componentDidMount: function () {
-    FilterStore.addChangeListener(this.setMinFilter);
-    FilterStore.addChangeListener(this.setMaxFilter);
+    // FilterStore.addChangeListener(this.setMinFilter);
+    // FilterStore.addChangeListener(this.setMaxFilter);
+    FilterStore.addChangeListener(this.onChange);
+
+  },
+
+  onChange: function () {
+    this.setState(FilterStore.filterParams());
   },
 
   setMinFilter: function (e) {
-    debugger
-    var min = e.currentTarget.value || 0;
+    var min = e.currentTarget.value;
     var minParams = {min: min, max: this.state.max};
-    FilterActions.setFilter(min);
-    this.setState({min: min});
+    FilterActions.setFilter(minParams);
   },
 
   setMaxFilter: function (e) {
-    var max = e.currentTarget.value || 100;
+    var max = e.currentTarget.value;
     var maxParams = {min: this.state.min, max: max};
     FilterActions.setFilter(maxParams);
-    this.setState({max: max});
   },
 
   render: function () {
