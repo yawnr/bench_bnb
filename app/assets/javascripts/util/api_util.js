@@ -12,6 +12,22 @@ ApiUtil = {
         }
 
       });
+  },
+
+  createBench: function (bench, callback) {
+
+      $.ajax({
+        url: "api/benches",
+        method: "POST",
+        dataType: "json",
+        data: {bench: bench},
+        success: function (bench) {
+          ApiActions.addBench(bench);
+          callback();
+        }
+
+      });
   }
+
 
 };

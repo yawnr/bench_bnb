@@ -24,24 +24,59 @@ var Map = React.createClass({
 
       ApiUtil.fetchBenches(bounds);
     });
+
+    this.map.addListener('click', function (e) {
+      this.props.redirectFun(e);
+    }.bind(this));
   },
 
   _onChange: function () {
     var markers = [];
     var pos;
-
-    BenchStore.all().forEach(function (bench) {
-      pos = {lat: bench.lat, lng: bench.lng};
-      markers.push(new google.maps.Marker({ position: pos, title: bench.description }));
-    });
-
+    var newPositions = [];
     var that = this;
+    var spliceIdx;
+
+
+    if (this.markers) {
+
+      BenchStore.all().forEach(function (bench) {
+        pos = {lat: bench.lat, lng: bench.lng};
+
+        newPositions.push(pos);
+
+
+        if (!that.oldPositions.indexOf(pos)) {
+          markers.push(new google.maps.Marker({ animation: google.maps.Animation.DROP, position: newPosition, title: bench.description }));
+        }
+
+      });
+
+      this.markers.forEach(function (oldMarker) {
+        if (!newPositions.indexOf(oldMarker.position)) {
+          oldMarker.setMap(null);
+          spliceIdx = that.markers.indexOf(oldMarker);
+          markers = markers.splice(spliceIdx, 1);
+        }
+      });
+    } else {
+      BenchStore.all().forEach(function (bench) {
+        pos = {lat: bench.lat, lng: bench.lng};
+        markers.push(new google.maps.Marker({ animation: google.maps.Animation.DROP, position: pos, title: bench.description }));
+      });
+    }
+
 
     markers.forEach(function (marker) {
       marker.setMap(that.map);
     });
 
     this.markers = markers;
+
+    this.oldPositions = markers.map(function (marker) {
+        return marker.position;
+    });
+
 
   },
 
