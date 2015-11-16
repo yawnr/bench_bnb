@@ -1,12 +1,12 @@
 ApiUtil = {
 
-  fetchBenches: function (bounds) {
-
+  fetchBenches: function (bounds, filterParams) {
+    
       $.ajax({
         url: "api/benches",
         method: "GET",
         dataType: "json",
-        data: {bounds: bounds},
+        data: {bounds: bounds, filterParams: filterParams},
         success: function (benches) {
           ApiActions.receiveAll(benches);
         }
@@ -28,6 +28,5 @@ ApiUtil = {
 
       });
   }
-
 
 };

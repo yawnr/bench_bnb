@@ -10,7 +10,7 @@ $(function () {
     render: function () {
       return (
         <div>
-          <header><h1><Link to="/">Bench BnB</Link></h1></header>
+          <h1><Link to="/">Bench BnB</Link></h1>
           <p><Link to="/benches/new">New Bench</Link></p>
           {this.props.children}
         </div>

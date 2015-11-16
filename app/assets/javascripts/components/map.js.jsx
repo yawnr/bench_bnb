@@ -21,8 +21,8 @@ var Map = React.createClass({
 
       var bounds = {'northEast': {'lat': nE.lat(), 'lng': nE.lng()}, 'southWest': {'lat': sW.lat(), 'lng': sW.lng()}};
 
-
-      ApiUtil.fetchBenches(bounds);
+      var filterParams = FilterStore.filterParams();
+      ApiUtil.fetchBenches(bounds, filterParams);
     });
 
     this.map.addListener('click', function (e) {

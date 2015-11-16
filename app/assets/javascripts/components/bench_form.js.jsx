@@ -10,7 +10,12 @@ var BenchForm = React.createClass({
   },
 
   getInitialState: function () {
-    return this.blankAttrs;
+    return {
+      lat: this.props.location.query.lat,
+      lng: this.props.location.query.lng,
+      seating: '',
+      description: ''
+    };
   },
 
   createBench: function (event) {
@@ -28,15 +33,13 @@ var BenchForm = React.createClass({
   },
 
   render: function () {
-    debugger
-    var lat = this.props.location.query;
-    var lng;
 
     return(
       <form className='new-bench' onSubmit={this.createBench}>
         <div>
-          <label htmlFor='bench_lat'>Latitude:</label>
+          <label key="bench_lat_label" htmlFor='bench_lat'>Latitude:</label>
           <input
+            key='bench_lat'
             type='text'
             id='bench_lat'
             valueLink={this.linkState("lat")}
@@ -44,8 +47,9 @@ var BenchForm = React.createClass({
         </div>
 
         <div>
-          <label htmlFor='bench_lng'>Longitude:</label>
+          <label key="bench_lng_label" htmlFor='bench_lng'>Longitude:</label>
           <input
+            key='bench_lng'
             type='text'
             id='bench_lng'
             valueLink={this.linkState("lng")}
@@ -53,8 +57,9 @@ var BenchForm = React.createClass({
         </div>
 
         <div>
-          <label htmlFor='bench_seating'>Seating:</label>
+          <label key="bench_seating_label" htmlFor='bench_seating'>Seating:</label>
           <input
+            key='bench_seating'
             type='text'
             id='bench_seating'
             valueLink={this.linkState("seating")}
@@ -62,8 +67,9 @@ var BenchForm = React.createClass({
         </div>
 
         <div>
-          <label htmlFor='bench_des'>Description:</label>
+          <label key="bench_des_label" htmlFor='bench_des'>Description:</label>
           <input
+            key='bench_des'
             type='text'
             id='bench_des'
             valueLink={this.linkState("description")}

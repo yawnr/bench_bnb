@@ -5,6 +5,7 @@ var Search = React.createClass({
   render: function () {
     return (
       <div>
+        <Filter />
         <Map redirectFun={this.clickMapHandler} />
         <Index />
       </div>
